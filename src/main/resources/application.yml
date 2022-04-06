@@ -1,0 +1,38 @@
+server:
+  port: 8180
+spring:
+  datasource:
+    url: jdbc:h2:file:./database/test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+    hikari:
+      max-lifetime: 300000
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        implicit_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        physical_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+logging:
+  pattern:
+    console: "[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{35} - %msg%n"
+    file: "[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{35} - %msg%n"
+  logback:
+    rollingpolicy:
+      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i.log
+      max-file-size: 1MB
+      max-history: -1
+  #file.name: /var/log/brick-test/application.log
+  level:
+    root: info
+    com.cloudhub: debug
+    io.kubernetes: debug
+    org.springframework: info
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
+
+environment:
+  jwt.secret: aGthcmxpbmcvc3ByaW5nLXNlY3VyaXR5LXByYWN0aWNlL2hrYXJsaW5nL3NwcmluZy1zZWN1cml0eS1wcmFjdGljZQ==
