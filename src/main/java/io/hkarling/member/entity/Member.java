@@ -5,6 +5,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 import io.hkarling.common.entity.BaseEntity;
+import io.hkarling.member.dto.MemberRequest;
 import io.hkarling.member.enums.Role;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,12 +16,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Getter
 @Builder
 @NoArgsConstructor(access = PROTECTED)
 @AllArgsConstructor(access = PROTECTED)
 @Entity
+@ToString
 public class Member extends BaseEntity {
 
     @Id
@@ -45,6 +48,15 @@ public class Member extends BaseEntity {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Member updateBasicInfo(MemberRequest request) {
+        this.email = request.getEmail();
+        this.phone = request.getPhone();
+        this.department = request.getDepartment();
+        this.position = request.getPosition();
+        this.avatar = request.getAvatar();
+        return this;
     }
 
 }

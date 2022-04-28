@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import io.hkarling.member.dto.LoginRequest;
 import io.hkarling.member.dto.MemberResponse;
-import io.hkarling.member.dto.SignupRequest;
+import io.hkarling.member.dto.MemberRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ class AuthServiceTest {
 
     @Test
     void signup() {
-        SignupRequest request = SignupRequest.builder()
+        MemberRequest request = MemberRequest.builder()
                 .username("admin-user")
                 .password("1234")
                 .name("관리자")

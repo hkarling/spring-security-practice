@@ -7,7 +7,7 @@ import io.hkarling.common.jwt.TokenRequest;
 import io.hkarling.common.jwt.TokenResponse;
 import io.hkarling.member.dto.LoginRequest;
 import io.hkarling.member.dto.MemberResponse;
-import io.hkarling.member.dto.SignupRequest;
+import io.hkarling.member.dto.MemberRequest;
 import io.hkarling.member.entity.Member;
 import io.hkarling.member.entity.RefreshToken;
 import io.hkarling.member.enums.Role;
@@ -38,7 +38,7 @@ public class AuthService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Transactional
-    public MemberResponse signup(SignupRequest request) {
+    public MemberResponse signup(MemberRequest request) {
         memberRepository.findByUsername(request.getUsername()).ifPresent(member -> {
             throw new CommonException(ErrorCode.USER_EXISTS);
         });

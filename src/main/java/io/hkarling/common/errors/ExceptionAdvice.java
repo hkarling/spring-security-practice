@@ -14,6 +14,26 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ExceptionAdvice {
 
+    @ExceptionHandler(CommonException.class)
+    public ResponseEntity<ErrorResponse> commonExceptionHandler(CommonException e) {
+        e.printStackTrace();
+        return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .message(e.getMessage())
+                .status(e.getCode())
+                .build());
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> defaultExceptionHandler(Exception e) {
+        e.printStackTrace();
+        return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .message(e.getMessage())
+                .status(INTERNAL_SERVER_ERROR.value())
+                .build());
+    }
+
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ErrorResponse> accessDeniedExceptionHandler(AccessDeniedException e) {
         e.printStackTrace();
@@ -34,14 +54,6 @@ public class ExceptionAdvice {
                 .build());
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> defaultExceptionHandler(Exception e) {
-        e.printStackTrace();
-        return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(ErrorResponse.builder()
-                .timestamp(LocalDateTime.now())
-                .message(e.getMessage())
-                .status(INTERNAL_SERVER_ERROR.value())
-                .build());
-    }
+
 
 }

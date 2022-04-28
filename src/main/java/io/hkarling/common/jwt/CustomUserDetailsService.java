@@ -21,13 +21,14 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return memberRepository.findByUsername(username)
-                .map(this::createUserDetails)
+                //.map(this::createUserDetails)
+                .map(CustomUserDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException(username + " -> cannot find in database"));
     }
 
-    private UserDetails createUserDetails(Member member) {
-        GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + member.getRole().name());
-        return new User(member.getUsername(), member.getPassword(), Collections.singleton(authority));
-    }
+//    private UserDetails createUserDetails(Member member) {
+//        GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + member.getRole().name());
+//        return new CustomUserDetails(member.getId(), member.getUsername(), member.getPassword(), Collections.singleton(authority));
+//    }
 
 }
